@@ -34,7 +34,7 @@ var config = {
 
 var player;
 var stars;
-var bombs;
+var ryss;
 var platforms;
 var cursors;
 var score = 0;
@@ -48,7 +48,7 @@ function preload ()
     this.load.image('bae', 'assets/bae.jpg');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('cheese', 'assets/cheese.png');
-    this.load.image('bomb', 'assets/bomb.png');
+    this.load.image('rys', 'assets/rys.png');
     this.load.spritesheet('baeder', 'assets/baeder.png', { frameWidth: 32, frameHeight: 48 });
 }
 
@@ -114,7 +114,7 @@ function create ()
 
     });
 
-    bombs = this.physics.add.group();
+    ryss = this.physics.add.group();
 
     //  The score
     scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
@@ -122,12 +122,12 @@ function create ()
     //  Collide the player and the stars with the platforms
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
-    this.physics.add.collider(bombs, platforms);
+    this.physics.add.collider(ryss, platforms);
 
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     this.physics.add.overlap(player, stars, collectStar, null, this);
 
-    this.physics.add.collider(player, bombs, hitBomb, null, this);
+    this.physics.add.collider(player, ryss, hitrys, null, this);
 }
 
 function update ()
@@ -181,16 +181,16 @@ function collectStar (player, star)
 
         var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
-        var bomb = bombs.create(x, 16, 'bomb');
-        bomb.setBounce(1);
-        bomb.setCollideWorldBounds(true);
-        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-        bomb.allowGravity = false;
+        var rys = ryss.create(x, 16, 'rys');
+        rys.setBounce(1);
+        rys.setCollideWorldBounds(true);
+        rys.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        rys.allowGravity = false;
 
     }
 }
 
-function hitBomb (player, bomb)
+function hitrys (player, rys)
 {
     this.physics.pause();
 
